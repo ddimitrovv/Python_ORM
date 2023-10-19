@@ -135,6 +135,7 @@ class CharacterChoices(models.TextChoices):
 class Character(models.Model):
     NAME_MAX_LEN = 100
     CLASS_NAME_MAX_LEN = 10
+    DEFAULT_INVENTORY = 'The inventory is empty'
     name = models.CharField(
         max_length=NAME_MAX_LEN
     )
@@ -147,4 +148,6 @@ class Character(models.Model):
     dexterity = models.PositiveIntegerField()
     intelligence = models.PositiveIntegerField()
     hit_points = models.PositiveIntegerField()
-    inventory = models.TextField()
+    inventory = models.TextField(
+        default=DEFAULT_INVENTORY
+    )

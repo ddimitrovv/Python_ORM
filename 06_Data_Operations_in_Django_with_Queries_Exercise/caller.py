@@ -1,7 +1,7 @@
 import os
 import django
 
-from main_app.models import Pet, Artifact, Location, Car, Task, HotelRoom, Character
+from main_app.models import Pet, Artifact, Location, Car, Task, HotelRoom, Character, CharacterChoices
 
 # Set up Django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "orm_skeleton.settings")
@@ -141,7 +141,7 @@ def update_characters():
         elif character.class_name == 'Warrior':
             character.hit_points /= 2
             character.dexterity += 4
-        elif character.class_name in ['Assassin', 'Scout']:
+        elif character.class_name in ('Assassin', 'Scout'):
             character.inventory = 'The inventory is empty'
         character.save()
 
@@ -159,15 +159,15 @@ def update_characters():
 def fuse_characters(first_character, second_character):
 
     inventory = ''
-    if first_character.class_name in ['Mage', 'Scout']:
+    if first_character.class_name in ('Mage', 'Scout'):
         inventory = 'Bow of the Elven Lords, Amulet of Eternal Wisdom'
-    elif first_character.class_name in ['Warrior', 'Assassin']:
+    elif first_character.class_name in ('Warrior', 'Assassin'):
         inventory = 'Dragon Scale Armor, Excalibur'
 
     Character.objects.create(
         name=f'{first_character.name} {second_character.name}',
-        class_name='Fusion',
-        level=int((first_character.level + second_character.level) // 2),
+        class_name=CharacterChoices.FUSION,
+        level=(first_character.level + second_character.level) // 2,
         strength=int((first_character.strength + second_character.strength) * 1.2),
         dexterity=int((first_character.dexterity + second_character.dexterity) * 1.4),
         intelligence=int((first_character.intelligence + second_character.intelligence) * 1.5),
@@ -179,7 +179,7 @@ def fuse_characters(first_character, second_character):
     second_character.delete()
 
 
-def grand_dexteriry():
+def grand_dexterity():
     Character.objects.all().update(dexterity=30)
 
 
@@ -192,4 +192,4 @@ def grand_strength():
 
 
 def delete_characters():
-    Character.objects.filter(inventory='The inventory is empty').delete()
+    Character.objects.filter(inventory__icontains='The inventory is empty').delete()
