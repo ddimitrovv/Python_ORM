@@ -1,5 +1,6 @@
 import os
 import django
+# from django.db.models import F
 
 from main_app.models import Pet, Artifact, Location, Car, Task, HotelRoom, Character, CharacterChoices
 
@@ -138,6 +139,7 @@ def update_characters():
     for character in characters:
         if character.class_name == 'Mage':
             character.level += 3
+            character.intelligence -= 7
         elif character.class_name == 'Warrior':
             character.hit_points /= 2
             character.dexterity += 4
@@ -146,7 +148,10 @@ def update_characters():
         character.save()
 
     # Option 2 - you will need: from django.db.models import F
-    # Character.objects.filter(class_name='Mage').update(level=F('level') + 3)
+    # Character.objects.filter(class_name='Mage').update(
+    #     level=F('level') + 3,
+    #     intelligence=F('intelligence') - 7
+    # )
     # Character.objects.filter(class_name='Warrior').update(
     #     hit_points=F('hit_points') / 2,
     #     dexterity=F('dexterity') + 4,
