@@ -113,6 +113,8 @@ def increase_room_capacity():
     rooms = HotelRoom.objects.order_by('id')
 
     for idx, room in enumerate(rooms):
+        if not room.is_reserved:
+            continue
         if idx == 0:
             room.capacity += room.id
         elif room.is_reserved:
