@@ -188,7 +188,7 @@ def grand_intelligence():
 
 
 def grand_strength():
-    characters = Character.objects.all().update(strength=50)
+    Character.objects.all().update(strength=50)
 
 
 def delete_characters():
