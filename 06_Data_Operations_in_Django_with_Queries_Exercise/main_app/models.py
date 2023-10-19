@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# Task 1
 class Pet(models.Model):
     NAME_MAX_LEN = 40
     SPECIES_MAX_LEN = 40
@@ -13,10 +14,11 @@ class Pet(models.Model):
     )
 
 
+# Task 2
 class Artifact(models.Model):
     NAME_MAX_LEN = 70
     ORIGIN_MAX_LEN = 70
-    DEFAULT_IS_MAGICAL = 'False'
+    DEFAULT_IS_MAGICAL = False
 
     name = models.CharField(
         max_length=NAME_MAX_LEN
@@ -31,10 +33,11 @@ class Artifact(models.Model):
     )
 
 
+# Task 3
 class Location(models.Model):
     NAME_MAX_LEN = 100
     REGION_MAX_LEN = 50
-    DEFAULT_IS_CAPITAL = 'False'
+    DEFAULT_IS_CAPITAL = False
 
     name = models.CharField(
         max_length=NAME_MAX_LEN
@@ -49,6 +52,7 @@ class Location(models.Model):
     )
 
 
+# Task 4
 class Car(models.Model):
     MODEL_MAX_LEN = 40
     COLOR_MAX_LEN = 40
@@ -76,6 +80,13 @@ class Car(models.Model):
     )
 
 
+# Task 5
+class RoomChoices(models.TextChoices):
+    STANDARD = 'Standard', 'Standard'
+    DELUXE = 'Deluxe', 'Deluxe'
+    SUITE = 'Suite', 'Suite'
+
+
 class Task(models.Model):
     TITLE_MAX_LEN = 25
     title = models.CharField(
@@ -86,3 +97,53 @@ class Task(models.Model):
     is_finished = models.BooleanField(
         default=False
     )
+
+
+# Task 6
+class HotelRoom(models.Model):
+    ROOM_TYPE_MAX_LEN = 20
+    PRICE_PER_NIGHT_MAX_DIGITS = 8
+    PRICE_PER_NIGHT_DECIMAL_PLACES = 2
+    DEFAULT_IS_RESERVED = False
+
+    room_number = models.PositiveIntegerField()
+    room_type = models.CharField(
+        max_length=ROOM_TYPE_MAX_LEN,
+        choices=RoomChoices.choices
+    )
+    capacity = models.PositiveIntegerField()
+    amenities = models.TextField()
+    price_per_night = models.DecimalField(
+        max_digits=PRICE_PER_NIGHT_MAX_DIGITS,
+        decimal_places=PRICE_PER_NIGHT_DECIMAL_PLACES
+    )
+    is_reserved = models.BooleanField(
+        default=DEFAULT_IS_RESERVED
+    )
+
+
+# Task 7
+class CharacterChoices(models.TextChoices):
+    MAGE = 'Mage', 'Mage'
+    WARRIOR = 'Warrior', 'Warrior'
+    ASSASSIN = 'Assassin', 'Assassin'
+    SCOUT = 'Scout', 'Scout'
+    FUSION = 'Fusion', 'Fusion'
+
+
+class Character(models.Model):
+    NAME_MAX_LEN = 100
+    CLASS_NAME_MAX_LEN = 10
+    name = models.CharField(
+        max_length=NAME_MAX_LEN
+    )
+    class_name = models.CharField(
+        max_length=CLASS_NAME_MAX_LEN,
+        choices=CharacterChoices.choices
+    )
+    level = models.PositiveIntegerField()
+    strength = models.PositiveIntegerField()
+    dexterity = models.PositiveIntegerField()
+    intelligence = models.PositiveIntegerField()
+    hit_points = models.PositiveIntegerField()
+    inventory = models.TextField()
