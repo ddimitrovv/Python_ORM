@@ -81,25 +81,26 @@ class Car(models.Model):
 
 
 # Task 5
-class RoomChoices(models.TextChoices):
-    STANDARD = 'Standard', 'Standard'
-    DELUXE = 'Deluxe', 'Deluxe'
-    SUITE = 'Suite', 'Suite'
-
-
 class Task(models.Model):
     TITLE_MAX_LEN = 25
+    DEFAULT_IS_FINISHED = False
     title = models.CharField(
         max_length=TITLE_MAX_LEN
     )
     description = models.TextField()
     due_date = models.DateField()
     is_finished = models.BooleanField(
-        default=False
+        default=DEFAULT_IS_FINISHED
     )
 
 
 # Task 6
+class RoomChoices(models.TextChoices):
+    STANDARD = 'Standard', 'Standard'
+    DELUXE = 'Deluxe', 'Deluxe'
+    SUITE = 'Suite', 'Suite'
+
+
 class HotelRoom(models.Model):
     ROOM_TYPE_MAX_LEN = 20
     PRICE_PER_NIGHT_MAX_DIGITS = 8
