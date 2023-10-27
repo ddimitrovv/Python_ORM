@@ -368,7 +368,8 @@ class RegularReservation(BaseReservation):
             self.start_date,
             self.end_date,
             self.__class__.__name__,
-            'reservation')
+            'reservation'
+        )
 
         super(RegularReservation, self).save(*args, **kwargs)
 
